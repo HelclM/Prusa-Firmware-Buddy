@@ -22,12 +22,12 @@ namespace {
 optional<ConnectionState> StaticFile::accept(const RequestParser &parser) const {
     constexpr const char prefix[] = "/internal/res/web";
     const size_t prefix_len = strlen(prefix);
-    char fname_buffer[FILE_PATH_BUFFER_LEN];
+    char fname_buffer[FILE_PATH_BUFFER_LEN + prefix_len];
     static_assert(sizeof(fname_buffer) > sizeof(prefix) + 1);
     const char *fname = fname_buffer;
     strcpy(fname_buffer, prefix);
 
-    if (!parser.uri_filename(fname_buffer + prefix_len, sizeof(fname) - prefix_len)) {
+    if (!parser.uri_filename(fname_buffer + prefix_len, sizeof(fname_buffer) - prefix_len)) {
         return nullopt;
     }
 
