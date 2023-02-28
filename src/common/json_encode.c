@@ -88,3 +88,31 @@ const char *jsonify_bool(bool value) {
         return json_false;
     }
 }
+
+int unescape_json(const char *in, size_t in_size, char *out, size_t out_size) {
+    // TODO: check sizes, also deal with \0
+    int num_of_unescaped_chars = 0;
+    size_t out_index = 0;
+    for (size_t i = 0; i < in_size; i++) {
+        if (in[i] == '\\') {
+            bool found = false;
+            for (size_t j = 0; j < sizeof special_chars / sizeof *special_chars; j++) {
+                if (in[i + 1] == special_chars[j].escape) {
+                    out[out_index++] = special_chars[j].input;
+                    found = true;
+                    num_of_unescaped_chars++;
+                    i++; // skip the special char we just processed
+                    break;
+                }
+            }
+            if (!found) {
+                out[out_index++] = in[i];
+            }
+        } else {
+            out[out_index++] = in[i];
+        }
+    }
+    out[out_index] = '\0';
+
+    return num_of_unescaped_chars;
+}

@@ -32,6 +32,7 @@
 extern "C" {
 #endif
 
+int unescape_json(const char *in, size_t in_size, char *out, size_t out_size);
 /**
  * \brief Returns a string representing a boolean value
  *

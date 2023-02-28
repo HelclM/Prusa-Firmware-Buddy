@@ -79,6 +79,7 @@ add_executable(
   ${CMAKE_SOURCE_DIR}/src/common/http/socket.cpp
   ${CMAKE_SOURCE_DIR}/src/common/http/connection.cpp
   ${CMAKE_SOURCE_DIR}/src/common/http/socket_connection_factory.cpp
+  ${CMAKE_SOURCE_DIR}/src/common/json_encode.c
   ${CMAKE_SOURCE_DIR}/src/connect/background.cpp
   ${CMAKE_SOURCE_DIR}/src/connect/planner.cpp
   ${CMAKE_SOURCE_DIR}/src/connect/command.cpp

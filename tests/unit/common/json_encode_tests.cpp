@@ -50,3 +50,21 @@ TEST_CASE("Escape len") {
     REQUIRE(jsonify_str_buffer("\n") == strlen("\\n") + 1);
     REQUIRE(jsonify_str_buffer_len("\0", 1) == strlen("\\u0000") + 1);
 }
+
+TEST_CASE("Unescape json copy") {
+    char json[] = "1\\\"\\\\a\\\"34\\f\\b5\\r\\n6\\n\\\\78\\t0";
+    char unescaped_json[50];
+    unescape_json(json, strlen(json), unescaped_json, 50);
+
+    const char *expected = "1\"\\a\"34\f\b5\r\n6\n\\78\t0";
+    REQUIRE(unescaped_json == string_view(expected));
+}
+
+TEST_CASE("Unescape json part string copy") {
+    char json[] = "1\\\"\\\\a\\\"34\\f\\b5\\r\\n6\\n\\\\78\\t0";
+    char unescaped_json[50];
+    unescape_json(json, 20, unescaped_json, 50);
+
+    const char *expected = "1\"\\a\"34\f\b5\r\n6";
+    REQUIRE(unescaped_json == string_view(expected));
+}

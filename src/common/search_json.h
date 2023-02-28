@@ -3,6 +3,7 @@
 
 #define JSMN_HEADER
 #include <jsmn.h>
+#include <json_encode.h>
 
 #include <cassert>
 
